@@ -1,6 +1,7 @@
 package com.lovetoknow.stepDefinitions;
 
 import com.lovetoknow.pages.DashboardPage;
+import com.lovetoknow.pages.UnscramblePage;
 import com.lovetoknow.utilities.BrowserUtils;
 import com.lovetoknow.utilities.ConfigurationReader;
 import com.lovetoknow.utilities.Driver;
@@ -8,23 +9,26 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class MainStepDefs {
 
     DashboardPage dashboardPage = new DashboardPage();
+    String validationMessage;
 
 
     @Given("the user is in the main page")
     public void the_user_is_in_the_main_page() {
         Driver.get().get(ConfigurationReader.get("url"));
-        BrowserUtils.waitFor(6);
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-web-security");
         System.out.println("*");
 
     }
@@ -37,8 +41,10 @@ public class MainStepDefs {
 
     @Then("the page title should contains {string}")
     public void the_page_title_should_contains(String word) {
+        BrowserUtils.waitForPageToLoad(10);
         String pageTitle = Driver.get().getTitle();
-        BrowserUtils.waitFor(3);
+        System.out.println(pageTitle);
+        System.out.println(word);
         Assert.assertTrue(pageTitle.toLowerCase().contains(word.toLowerCase()));
         System.out.println("***");
 
@@ -66,6 +72,34 @@ public class MainStepDefs {
         Boolean isPresent = Driver.get().findElements(By.id("back to top")).size() > 0;
         Assert.assertFalse(isPresent);
 
+
+    }
+
+    @When("the user enters {string}")
+    public void the_user_enters(String string) {
+        dashboardPage.length.click();
+        BrowserUtils.waitFor(4);
+        UnscramblePage unscramblePage = new UnscramblePage();
+        List<WebElement> button = Driver.get().findElements(By.id("onetrust-accept-btn-handler"));
+
+
+        if (button.size() >0 ){
+            unscramblePage.acceptButton.click();
+
+        }
+
+
+        System.out.println(string);
+        dashboardPage.length.sendKeys(string, Keys.ENTER);
+        BrowserUtils.waitFor(2);
+        validationMessage = dashboardPage.length.getAttribute("validationMessage");
+
+    }
+
+
+    @Then("the user should be asked to correct the input")
+    public void the_user_should_be_asked_to_correct_the_input() {
+        Assert.assertTrue(validationMessage.contains("Value must be"));
 
     }
 

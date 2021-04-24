@@ -56,12 +56,13 @@ public class UnscrambleStepDefs {
         BrowserUtils.waitFor(3);
         unscramblePage.acceptButton.click();
         unscramblePage.sortButton.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(4);
         unscramblePage.sortAllButton.click();
     }
 
     @Then("the user should see the word with the LEAST points")
     public void the_user_should_see_the_word_with_the_LEAST_points() {
+        BrowserUtils.waitFor(3);
         unscramblePage.seeMore.click();
         BrowserUtils.waitFor(3);
         unscramblePage.seeAllWords.click();
@@ -99,7 +100,7 @@ public class UnscrambleStepDefs {
         Collections.sort(sortedList);
         System.out.println(sortedList);
 
-        Assert.assertEquals(sortedList,wordList);
+        Assert.assertEquals(sortedList, wordList);
     }
 
     /**
@@ -130,14 +131,14 @@ public class UnscrambleStepDefs {
         System.out.println(wordList);
         List<String> sortedList = new ArrayList<>();
 
-        for (int i= wordList.size()-1; i>=0; i-- ) {
+        for (int i = wordList.size() - 1; i >= 0; i--) {
             Collections.sort(wordList);
             sortedList.add(wordList.get(i));
 
         }
         System.out.println(wordList);
         System.out.println(sortedList);
-        Assert.assertEquals(sortedList,wordList);
+        Assert.assertEquals(sortedList, wordList);
 
         /**
          * This step is failed as the short functionality didn't work as expected

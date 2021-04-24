@@ -28,6 +28,10 @@ public class DashboardPage extends  BasePage{
     @FindBy(xpath = "//*[text(),'back to top']")
     public  WebElement backToTopButton;
 
+    @FindBy(id = "advanced_search_control_input_wordLength")
+    public WebElement length;
+
+
 
 
 

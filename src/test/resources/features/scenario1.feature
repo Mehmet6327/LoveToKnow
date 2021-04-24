@@ -1,3 +1,4 @@
+@wip
 Feature:
 
   @wip1
@@ -37,5 +38,20 @@ Feature:
     Given the user is in the main page
     When the user scroll down to the bottom
     Then “back to top”button is not shown in the browser
+
+  @wip6
+  Scenario Outline:Negative test for the length field
+    Given the user is in the main page
+    When the user enters "<invalid input>"
+    Then the user should be asked to correct the input
+    Examples:
+      | invalid input |
+      | 0             |
+      | 1             |
+      | -1            |
+      | 21            |
+      | 100           |
+      | 0.            |
+
 
 
