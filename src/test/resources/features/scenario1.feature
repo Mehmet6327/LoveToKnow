@@ -1,26 +1,26 @@
 @wip
 Feature:
 
-  @wip1
+  @question1
   Scenario: Corresponding term present and visible
     Given the user is in the main page
     When the user searches for "congratulations"
     Then the page title should contains "congratulations"
     Then the "congratulations" should be visible on the page
 
-  @wip2
+  @question2
   Scenario: Validating the title and the table have same number
     Given the user is in the main page
     When the user searches for "apple"
     Then the number of words in the title and in the table should be equal
 
-  @wip3
+  @question3
   Scenario: Find the word with the LEAST points
     Given the user is in the given page
     When the user sorts all words
     Then the user should see the word with the LEAST points
 
-  @wip4
+  @question4
   Scenario:Sorting result by "A-Z"
     Given the user is in the given page
     When the user sorts all words
@@ -33,13 +33,13 @@ Feature:
     And the user sort results by "Z-A"
     Then the user should see the sorted results
 
-  @wip5
+  @question5
   Scenario: Back to top button
     Given the user is in the main page
     When the user scroll down to the bottom
     Then “back to top”button is not shown in the browser
 
-  @wip6
+  @question6
   Scenario Outline:Negative test for the length field
     Given the user is in the main page
     When the user enters "<invalid input>"
