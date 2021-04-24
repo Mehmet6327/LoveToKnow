@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 
         features = "src/test/resources/features",
         glue = "com/lovetoknow/stepDefinitions",
-        dryRun =false,
-        tags = "@wip3"
+        dryRun =true,
+        tags = "@wip5"
 )
 
 

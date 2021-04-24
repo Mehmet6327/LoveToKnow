@@ -10,13 +10,13 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class MainStepDefs {
 
-DashboardPage dashboardPage = new DashboardPage();
-
+    DashboardPage dashboardPage = new DashboardPage();
 
 
     @Given("the user is in the main page")
@@ -25,20 +25,19 @@ DashboardPage dashboardPage = new DashboardPage();
         BrowserUtils.waitFor(6);
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-web-security");
-        ChromeDriver driver = new ChromeDriver(options);
         System.out.println("*");
 
     }
 
     @When("the user searches for {string}")
     public void the_user_searches_for(String word) {
-       dashboardPage.sendWords(word);
+        dashboardPage.sendWords(word);
         System.out.println("**");
     }
 
     @Then("the page title should contains {string}")
     public void the_page_title_should_contains(String word) {
-        String pageTitle = Driver.get().getTitle(); // BUNU CAGLAR ABIYE SOR IKI GOOGLE ACILIYOR
+        String pageTitle = Driver.get().getTitle();
         BrowserUtils.waitFor(3);
         Assert.assertTrue(pageTitle.toLowerCase().contains(word.toLowerCase()));
         System.out.println("***");
@@ -52,6 +51,23 @@ DashboardPage dashboardPage = new DashboardPage();
         System.out.println("****");
     }
 
+
+    @When("the user scroll down to the bottom")
+    public void the_user_scroll_down_to_the_bottom() {
+        JavascriptExecutor jse = (JavascriptExecutor) Driver.get();
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+
+    }
+
+    @Then("“back to top”button is not shown in the browser")
+    public void back_to_top_button_is_not_shown_in_the_browser() {
+
+        Boolean isPresent = Driver.get().findElements(By.id("back to top")).size() > 0;
+        Assert.assertFalse(isPresent);
+
+
+    }
 
 
 }
